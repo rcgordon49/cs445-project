@@ -1,3 +1,5 @@
+SQL Tables
+
 CREATE TABLE Professionals
 (pro_name	CHAR(50),
 gender 	CHAR(1),
@@ -7,6 +9,7 @@ CREATE TABLE Movies
 (mid		int NOT NULL AUTO_INCREMENT,
 title 		CHAR(250) NOT NULL,
 year 		INT(4) NOT NULL,
+running_time	INT(20),
 UNIQUE (title, year),
 PRIMARY KEY (mid));
 
