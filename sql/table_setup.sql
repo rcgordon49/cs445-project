@@ -98,7 +98,7 @@ ON UPDATE CASCADE,
 FOREIGN KEY(pro_name) REFERENCES Professionals(pro_name)
 ON DELETE CASCADE
 ON UPDATE CASCADE,
-PRIMARY KEY (pro_name, title, year));
+PRIMARY KEY (pro_name, title, year, role_name));
 
 CREATE TABLE Acts_in
 (pro_name	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
@@ -110,7 +110,7 @@ ON UPDATE CASCADE,
 FOREIGN KEY(pro_name) REFERENCES Professionals(pro_name)
 ON DELETE CASCADE
 ON UPDATE CASCADE,
-PRIMARY KEY (pro_name, mid));
+PRIMARY KEY (pro_name, mid, role_name));
 
  
 CREATE TABLE Directs_Temp
