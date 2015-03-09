@@ -4,7 +4,6 @@ gender 	CHAR(1));
 
 CREATE TABLE Professionals
 (pro_name	CHAR(50),
-gender 	CHAR(1),
 PRIMARY KEY (pro_name));
  
 CREATE TABLE Movies

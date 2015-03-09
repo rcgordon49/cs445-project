@@ -1,3 +1,3 @@
-INSERT INTO Professionals
-SELECT DISTINCT *
-FROM Professionals_Temp;
+insert into Professionals(pro_name)
+select distinct pro_name
+from Professionals_Temp;
