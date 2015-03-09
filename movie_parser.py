@@ -61,6 +61,7 @@ def createProObj():
 #x = re.match(mregex, mline)
 #x.groupdict()
 log = True
+profList = []
 
 with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open('%s/movies_formatted.txt' % OUTPUT_DIR, 'w+') as movFile, open('%s/professional_formatted.txt' % OUTPUT_DIR, 'w+') as profFile, open('%s/keywords_formatted.txt' % OUTPUT_DIR, 'w+') as keyFile,open('%s/directs_formatted.txt' % OUTPUT_DIR, 'w+') as dirFile,open('%s/produces_formatted.txt' % OUTPUT_DIR, 'w+') as prodFile,open('%s/edits_formatted.txt' % OUTPUT_DIR, 'w+') as edFile,open('%s/actsIn_formatted.txt' % OUTPUT_DIR, 'w+') as actRelFile:
   #movFile, profFile, keyFile, 
@@ -117,8 +118,13 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
       actObj['title'] = movieObj['title']
       actObj['year'] = movieObj['year']
       
-      profFile.write('\t'.join(proObj.values()) + '\n')
-      profFile.flush()
+      if(not proObj in profList):
+        profList.append(proObj)
+        profFile.write('\t'.join(proObj.values()) + '\n')
+        profFile.flush()
+      else:
+        print('--DUPLICATE--')
+        print(proObj)
       actRelFile.write('\t'.join(actObj.values()) + '\n')
       actRelFile.flush()
       
