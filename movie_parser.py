@@ -112,7 +112,7 @@ def zipNameObjs(names, movieObj):
 
 #x = re.match(mregex, mline)
 #x.groupdict()
-log = True
+log = False
 profList = []
 
 with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open('%s/movies_formatted.txt' % OUTPUT_DIR, 'w+') as movFile, open('%s/professional_formatted.txt' % OUTPUT_DIR, 'w+') as profFile, open('%s/keywords_formatted.txt' % OUTPUT_DIR, 'w+') as keyFile,open('%s/directs_formatted.txt' % OUTPUT_DIR, 'w+') as dirFile,open('%s/produces_formatted.txt' % OUTPUT_DIR, 'w+') as prodFile,open('%s/edits_formatted.txt' % OUTPUT_DIR, 'w+') as edFile,open('%s/actsIn_formatted.txt' % OUTPUT_DIR, 'w+') as actRelFile:
@@ -122,7 +122,8 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
   movieObj = None
   for line in inFile:
     case = findCase(line)
-    if log: print('---CASE---\n%s\n-------------\n' % case)
+    if log:
+      print('---CASE---\n%s\n-------------\n' % case)
     
     if case == 'title':
       if(movieObj):
@@ -132,22 +133,20 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
       movieObj['title'] = re.findall(regex['title'], line)[0]
       if log:
         print('***%s***' % movieObj['title'])
-      
+      else:
+        print("(Title, Year) = (%s, %s)" % (movieObj['title'], movieObj['year']))
     elif case == 'year':
       movieObj['year'] = re.findall(regex['year'], line)[0]
       if log:
-        print('Year: %s' % movieObj['year'])
-      
+        print('Year: %s' % movieObj['year'])           
     elif case == 'runtime':
       movieObj['runtime'] = re.findall(regex['runtime'], line)[0]
       if log:
-        print('runtime: %s' % movieObj['runtime'])
-      
+        print('runtime: %s' % movieObj['runtime'])       
     elif case == 'mpaa':
       movieObj['mpaa'] = re.findall(regex['mpaa'], line)[0]
       if log:
-        print('mpaa: %s' % movieObj['mpaa'])
-   
+        print('mpaa: %s' % movieObj['mpaa'])  
     elif case == 'keywords':
       keywords = re.findall(regex['keywords'], line)
       keyObjs = zipKeyObjs(keywords, movieObj)
@@ -155,8 +154,7 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
         keyFile.write('\t'.join(k.values()))
         keyFile.write('\n')
       if log:
-        print('keywords: ' + ','.join(keywords))
-    
+        print('keywords: ' + ','.join(keywords))      
     elif case == 'producers':
       producers = re.findall(regex['producers'], line)
       prodObjs = zipNameObjs(producers, movieObj)
@@ -164,8 +162,7 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
         prodFile.write('\t'.join(p.values()))
         prodFile.write('\n')
       if log:
-        print('producers: ' + ','.join(producers))
-      
+        print('producers: ' + ','.join(producers))             
     elif case == 'directors':
       directors = re.findall(regex['directors'], line)
       dirObjs = zipNameObjs(directors, movieObj)
@@ -173,8 +170,7 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
         dirFile.write('\t'.join(d.values()))
         dirFile.write('\n')
       if log:
-        print('directors: ' + ','.join(directors))
-      
+        print('directors: ' + ','.join(directors))         
     elif case == 'editors':
       editors = re.findall(regex['editors'], line)
       editObjs = zipNameObjs(editors, movieObj)
@@ -182,8 +178,7 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
         edFile.write('\t'.join(e.values()))
         edFile.write('\n')
       if log:
-        print('editors: ' + ','.join(editors))
-      
+        print('editors: ' + ','.join(editors))             
     elif case == 'actor':
       proObj = createProObj()
       actObj = createActObj()
@@ -201,17 +196,19 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
         profFile.write('\t'.join(proObj.values()) + '\n')
         profFile.flush()
       else:
-        print('--DUPLICATE--')
-        print(proObj)
+        if log:
+          print('--DUPLICATE--')
+          print(proObj)
       actRelFile.write('\t'.join(actObj.values()) + '\n')
       actRelFile.flush()
       
       if log:
         print('actor obj: %s' % str(actObj))
-        print('pro obj: %s' % str(proObj))
-        
+        print('pro obj: %s' % str(proObj))  
+              
     else:
-      print('invalid case')
+      if log:
+        print('invalid case')
     
   #write out last line
   if(movieObj):
