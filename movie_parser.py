@@ -68,6 +68,7 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
   #dirFile, prodFile, edFile, actRelFile
   for line in inFile:
     case = findCase(line)
+    if log: print('---CASE---\n%s\n-------------\n' % case)
     
     if case == 'title':
       movieObj = {'title' : '', 'year' : '', 'runtime' : '', 'mpaa' : ''}
