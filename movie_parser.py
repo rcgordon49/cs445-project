@@ -1,6 +1,5 @@
 import re
 import collections
-from Bio import trie
 
 SOURCE_DIR = 'data/orig_data'
 OUTPUT_DIR = 'data/rel_data'
