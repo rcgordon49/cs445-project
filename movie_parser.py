@@ -1,5 +1,6 @@
 import re
 import collections
+from Bio import trie
 
 SOURCE_DIR = 'data/orig_data'
 OUTPUT_DIR = 'data/rel_data'
@@ -60,48 +61,48 @@ def createProObj():
   return proObj
   
 def createMovieObj():
-  #movieObj = {'title' : '', 'year' : '', 'runtime' : '', 'mpaa' : ''}
+  #movieObj = {'title' : '', 'year' : '', 'runtime' : ''}
   movieObj = collections.OrderedDict()
   movieObj['title'] = ''
   movieObj['year'] = ''
   movieObj['runtime'] = ''
-  movieObj['mpaa'] = ''
   return movieObj
   
-def createKeyObj():
+def createMPAAObj(mpaa, movie):
+  mpaaObj = collections.OrderedDict()
+  mpaaObj['title'] = movie['title']
+  mpaaObj['year'] = movie['year']
+  mpaaObj['mpaa'] = mpaa
+  return mpaaObj
+  
+def createKeyObj(keyword, movie):
   #keyObj = {'keyword' : '', 'title': '', 'year' : ''}
   keyObj = collections.OrderedDict()
-  keyObj['keyword'] = ''
-  keyObj['title'] = ''
-  keyObj['year'] = ''
+  keyObj['keyword'] = keyword
+  keyObj['title'] = movie['title']
+  keyObj['year'] = movie['year']
   return keyObj
 
 def zipKeyObjs(keywords, movieObj):
   objs = []
   for k in keywords:
-    kobj = createKeyObj()
-    kobj['keyword'] = k
-    kobj['title'] = movieObj['title']
-    kobj['year'] = movieObj['year']
+    kobj = createKeyObj(k, movieObj)
     objs.append(kobj)
     
   return objs
   
-def createNameObj():
+def createNameObj(name, movie):
   #editObj = {'name' : '', 'title' : '', 'year' : ''}
   editObj = collections.OrderedDict()
-  editObj['name'] = ''
-  editObj['title'] = ''
-  editObj['year'] = ''
+  editObj['name'] = name
+  editObj['title'] = movie['title']
+  editObj['year'] = movie['year']
   return editObj  
 
 def zipNameObjs(names, movieObj):
   objs = []
   for n in names:
-    nobj = createNameObj()
-    nobj['name'] = n
-    nobj['title'] = movieObj['title']
-    nobj['year'] = movieObj['year']
+    nobj = createNameObj(n, movieObj)
     objs.append(nobj)
     
   return objs
@@ -113,11 +114,12 @@ def zipNameObjs(names, movieObj):
 #x = re.match(mregex, mline)
 #x.groupdict()
 log = False
-profList = []
+profList = trie.trie()
 
-with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open('%s/movies_formatted.txt' % OUTPUT_DIR, 'w+') as movFile, open('%s/professional_formatted.txt' % OUTPUT_DIR, 'w+') as profFile, open('%s/keywords_formatted.txt' % OUTPUT_DIR, 'w+') as keyFile,open('%s/directs_formatted.txt' % OUTPUT_DIR, 'w+') as dirFile,open('%s/produces_formatted.txt' % OUTPUT_DIR, 'w+') as prodFile,open('%s/edits_formatted.txt' % OUTPUT_DIR, 'w+') as edFile,open('%s/actsIn_formatted.txt' % OUTPUT_DIR, 'w+') as actRelFile:
+with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open('%s/movies_formatted.txt' % OUTPUT_DIR, 'w+') as movFile, open('%s/professional_formatted.txt' % OUTPUT_DIR, 'w+') as profFile, open('%s/keywords_formatted.txt' % OUTPUT_DIR, 'w+') as keyFile,open('%s/directs_formatted.txt' % OUTPUT_DIR, 'w+') as dirFile,open('%s/produces_formatted.txt' % OUTPUT_DIR, 'w+') as prodFile,open('%s/edits_formatted.txt' % OUTPUT_DIR, 'w+') as edFile,open('%s/actsIn_formatted.txt' % OUTPUT_DIR, 'w+') as actRelFile, open('%s/mpaa_formatted.txt' % OUTPUT_DIR, 'w+') as mpaaFile:
   #movFile, profFile, keyFile, 
-  #dirFile, prodFile, edFile, actRelFile
+  #dirFile, prodFile, edFile, actRelFile,
+  #mpaaFile
   
   movieObj = None
   for line in inFile:
@@ -144,9 +146,11 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
       if log:
         print('runtime: %s' % movieObj['runtime'])       
     elif case == 'mpaa':
-      movieObj['mpaa'] = re.findall(regex['mpaa'], line)[0]
+      mpaa = re.findall(regex['mpaa'], line)[0]
+      mpaaObj = createMPAAObj(mpaa, movieObj)
+      mpaaFile.write('\t'.join(mpaaObj.values()) + '\n')
       if log:
-        print('mpaa: %s' % movieObj['mpaa'])  
+        print('mpaa: %s' % mpaa)  
     elif case == 'keywords':
       keywords = re.findall(regex['keywords'], line)
       keyObjs = zipKeyObjs(keywords, movieObj)
@@ -191,14 +195,14 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
       actObj['title'] = movieObj['title']
       actObj['year'] = movieObj['year']
       
-      if(not proObj in profList):
-        profList.append(proObj)
-        profFile.write('\t'.join(proObj.values()) + '\n')
-        profFile.flush()
-      else:
-        if log:
-          print('--DUPLICATE--')
-          print(proObj)
+      #if(not proObj['name'] in profList):
+      #  profList[proObj['name']] = proObj['name']
+      profFile.write('\t'.join(proObj.values()) + '\n')
+      profFile.flush()
+      #else:
+      if log:
+        #print('--DUPLICATE--')
+        print(proObj)
       actRelFile.write('\t'.join(actObj.values()) + '\n')
       actRelFile.flush()
       
