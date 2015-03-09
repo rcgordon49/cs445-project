@@ -62,17 +62,17 @@ ON UPDATE CASCADE,
 PRIMARY KEY(mid, genre));
 
 CREATE TABLE Has_Key_Word_Temp
-(title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
+(key_word	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
+title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year		INT(4),
-key_word	CHAR(50),
 FOREIGN KEY (title, year) REFERENCES Movies(title, year)
 ON DELETE CASCADE
 ON UPDATE CASCADE,
 PRIMARY KEY (title, year, key_word));
 
 CREATE TABLE Has_Key_Word
-(mid	INT,
-key_word	CHAR(50),
+(key_word	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
+mid	INT,
 FOREIGN KEY (mid) REFERENCES Movies(mid)
 ON DELETE CASCADE
 ON UPDATE CASCADE,
@@ -91,7 +91,7 @@ CREATE TABLE Acts_in_Temp
 (pro_name	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
 title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year 		INT(4),
-role_name    	CHAR(50),
+role_name    	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
 FOREIGN KEY(title, year) REFERENCES Movies(title, year)
 ON DELETE CASCADE
 ON UPDATE CASCADE,
@@ -103,7 +103,7 @@ PRIMARY KEY (pro_name, title, year, role_name));
 CREATE TABLE Acts_in
 (pro_name	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
 mid	INT,
-role_name    	CHAR(50),
+role_name    	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
 FOREIGN KEY(mid) REFERENCES Movies(mid)
 ON DELETE CASCADE
 ON UPDATE CASCADE,
