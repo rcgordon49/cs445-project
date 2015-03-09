@@ -22,7 +22,7 @@ description	TEXT(2000),
 PRIMARY KEY (mpaa_rating));
 
 CREATE TABLE Has_Mpaa_Rating_Temp
-(title 		CHAR(250),
+(title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year 		INT(4),
 mpaa_rating	CHAR(5),
 FOREIGN KEY (title, year) REFERENCES Movies(title, year)
@@ -45,7 +45,7 @@ ON UPDATE CASCADE,
 PRIMARY KEY(mid));
 
 CREATE TABLE Has_Genre_Temp
-(title		CHAR(50),
+(title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year		INT(4),
 genre 		CHAR(50),
 FOREIGN KEY (title, year) REFERENCES Movies(title, year)
@@ -62,7 +62,7 @@ ON UPDATE CASCADE,
 PRIMARY KEY(mid, genre));
 
 CREATE TABLE Has_Key_Word_Temp
-(title		CHAR(50),
+(title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year		INT(4),
 key_word	CHAR(50),
 FOREIGN KEY (title, year) REFERENCES Movies(title, year)
@@ -89,7 +89,7 @@ PRIMARY KEY (email_address));
  
 CREATE TABLE Acts_in_Temp
 (pro_name  	CHAR(50),
-title  		CHAR(250),
+title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year 		INT(4),
 role_name    	CHAR(50),
 FOREIGN KEY(title, year) REFERENCES Movies(title, year)
@@ -115,7 +115,7 @@ PRIMARY KEY (pro_name, mid));
  
 CREATE TABLE Directs_Temp
 (pro_name  	CHAR(50),
-title  		CHAR(250),
+title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year 		INT(4),
 FOREIGN KEY(title, year) REFERENCES Movies(title, year)
 ON DELETE CASCADE
@@ -138,7 +138,7 @@ PRIMARY KEY (pro_name, mid));
 
 CREATE TABLE Produces_Temp
 (pro_name  	CHAR(50),
-title  		CHAR(250),
+title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year 		INT(4),
 FOREIGN KEY(title, year) REFERENCES Movies(title, year)
 ON DELETE CASCADE
@@ -161,7 +161,7 @@ PRIMARY KEY (pro_name, mid));
 
 CREATE TABLE Edits_Temp
 (pro_name  	CHAR(50),
-title  		CHAR(250),
+title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year 		INT(4),
 FOREIGN KEY(title, year) REFERENCES Movies(title, year)
 ON DELETE CASCADE
@@ -184,7 +184,7 @@ PRIMARY KEY (pro_name, mid));
 
  CREATE TABLE Rates_Temp
 (email_address    	CHAR(50),
-title  			CHAR(250),
+title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year 			INT(4),
 user_rating  		INT(2),
 FOREIGN KEY(title, year) REFERENCES Movies(title, year)
@@ -209,7 +209,7 @@ PRIMARY KEY (email_address, mid));
 
 CREATE TABLE Watches_Temp
 (email_address    	CHAR(50),
-title  			CHAR(250),
+title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year 			INT(4),
 watch_time  		TIMESTAMP,
 FOREIGN KEY(title, year) REFERENCES Movies(title, year)
