@@ -14,6 +14,7 @@ running_time	INT(20),
 UNIQUE (title, year),
 PRIMARY KEY (mid));
 
+
 CREATE TABLE Mpaa_Rating
 (mpaa_rating		CHAR(5),
 definition	CHAR(100),
@@ -32,6 +33,17 @@ ON DELETE CASCADE
 ON UPDATE CASCADE,
 PRIMARY KEY(title, year));
 
+CREATE TABLE Has_Mpaa_Rating
+(mid	INT,
+mpaa_rating	CHAR(5),
+FOREIGN KEY (mid) REFERENCES Movies(mid)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+FOREIGN KEY (mpaa_rating) REFERENCES Mpaa_Rating(mpaa_rating)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+PRIMARY KEY(mid));
+
 CREATE TABLE Has_Genre_Temp
 (title		CHAR(50),
 year		INT(4),
@@ -41,6 +53,14 @@ ON DELETE CASCADE
 ON UPDATE CASCADE,
 PRIMARY KEY(title, year, genre));
 
+CREATE TABLE Has_Genre
+(mid	INT,
+genre 		CHAR(50),
+FOREIGN KEY (mid) REFERENCES Movies(mid)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+PRIMARY KEY(mid, genre));
+
 CREATE TABLE Has_Key_Word_Temp
 (title		CHAR(50),
 year		INT(4),
@@ -49,6 +69,14 @@ FOREIGN KEY (title, year) REFERENCES Movies(title, year)
 ON DELETE CASCADE
 ON UPDATE CASCADE,
 PRIMARY KEY (title, year, key_word));
+
+CREATE TABLE Has_Key_Word
+(mid	INT,
+key_word	CHAR(50),
+FOREIGN KEY (mid) REFERENCES Movies(mid)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+PRIMARY KEY (mid, key_word));
 
 CREATE TABLE Users
 (email_address   	CHAR(50),
@@ -71,6 +99,19 @@ FOREIGN KEY(pro_name) REFERENCES Professionals(pro_name)
 ON DELETE CASCADE
 ON UPDATE CASCADE,
 PRIMARY KEY (pro_name, title, year));
+
+CREATE TABLE Acts_in
+(pro_name  	CHAR(50),
+mid	INT,
+role_name    	CHAR(50),
+FOREIGN KEY(mid) REFERENCES Movies(mid)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+FOREIGN KEY(pro_name) REFERENCES Professionals(pro_name)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+PRIMARY KEY (pro_name, mid));
+
  
 CREATE TABLE Directs_Temp
 (pro_name  	CHAR(50),
@@ -84,6 +125,17 @@ ON DELETE CASCADE
 ON UPDATE CASCADE,
 PRIMARY KEY (pro_name, title, year));
  
+CREATE TABLE Directs
+(pro_name  	CHAR(50),
+mid	INT,
+FOREIGN KEY(mid) REFERENCES Movies(mid)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+FOREIGN KEY(pro_name) REFERENCES Professionals(pro_name)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+PRIMARY KEY (pro_name, mid));
+
 CREATE TABLE Produces_Temp
 (pro_name  	CHAR(50),
 title  		CHAR(250),
@@ -96,6 +148,17 @@ ON DELETE CASCADE
 ON UPDATE CASCADE,
 PRIMARY KEY (pro_name, title, year));
 
+CREATE TABLE Produces
+(pro_name  	CHAR(50),
+mid	INT,
+FOREIGN KEY(mid) REFERENCES Movies(mid)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+FOREIGN KEY(pro_name) REFERENCES Professionals(pro_name)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+PRIMARY KEY (pro_name, mid));
+
 CREATE TABLE Edits_Temp
 (pro_name  	CHAR(50),
 title  		CHAR(250),
@@ -107,6 +170,17 @@ FOREIGN KEY(pro_name) REFERENCES Professionals(pro_name)
 ON DELETE CASCADE
 ON UPDATE CASCADE,
 PRIMARY KEY (pro_name, title, year));
+
+CREATE TABLE Edits
+(pro_name  	CHAR(50),
+mid	INT,
+FOREIGN KEY(mid) REFERENCES Movies(mid)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+FOREIGN KEY(pro_name) REFERENCES Professionals(pro_name)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+PRIMARY KEY (pro_name, mid));
 
  CREATE TABLE Rates_Temp
 (email_address    	CHAR(50),
@@ -121,6 +195,18 @@ ON DELETE CASCADE
 ON UPDATE CASCADE,
 PRIMARY KEY (email_address, title, year));
 
+ CREATE TABLE Rates
+(email_address    	CHAR(50),
+mid	INT,
+user_rating  		INT(2),
+FOREIGN KEY(mid) REFERENCES Movies(mid)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+FOREIGN KEY (email_address) REFERENCES Users (email_address)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+PRIMARY KEY (email_address, mid));
+
 CREATE TABLE Watches_Temp
 (email_address    	CHAR(50),
 title  			CHAR(250),
@@ -133,6 +219,18 @@ FOREIGN KEY (email_address) REFERENCES Users (email_address)
 ON DELETE CASCADE
 ON UPDATE CASCADE,
 PRIMARY KEY (email_address, title, year, watch_time));
+
+CREATE TABLE Watches
+(email_address    	CHAR(50),
+mid	INT,
+watch_time  		TIMESTAMP,
+FOREIGN KEY(mid) REFERENCES Movies(mid)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+FOREIGN KEY (email_address) REFERENCES Users (email_address)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+PRIMARY KEY (email_address, mid, watch_time));
 
 CREATE TABLE Follows
 (email1	CHAR(50),
