@@ -10,11 +10,11 @@ regex = {'title' : r"\t(.+)",
          'year' : r"\t(\d+)", #year has 4 digits
          'runtime' : r"\t(\d+)",
          'mpaa' : r"\t(\w{1,4})", #longest letter combo is pg13
-         'keywords' : r"\t([^\t]+)", #each entry is preceded by a tab
-         'producers' : r"\t([^\t]+)",
-         'directors' : r"\t([^\t+])",
-         'editors' : r"\t([^\t]+)",
-         'actor' : r"(?P<type>Actor|Actress)\t(?P<name>[^\t]+)\t(?P<role>[^\t]+)"
+         'keywords' : r"\t([^\t\n]+)", #each entry is preceded by a tab
+         'producers' : r"\t([^\t\n]+)",
+         'directors' : r"\t([^\t\n]+)",
+         'editors' : r"\t([^\t\n]+)",
+         'actor' : r"(?P<type>Actor|Actress)\t(?P<name>[^\t]+)\t(?P<role>[^\t\n]+)"
         }
              
 def findCase(line):
@@ -37,6 +37,11 @@ def findCase(line):
   elif line.startswith('Actor') or line.startswith('Actress'):
     return 'actor'
   
+def strDict(orderedDict):
+  output = ''
+  for key in orderedDict:
+    output += str(orderedDict[key]) + '\t'
+  return output
 
 def createActObj():
   #actObj = {'pro_name' : '', 'title' : '', 'year' : '', 'role' : ''}
@@ -62,6 +67,44 @@ def createMovieObj():
   movieObj['runtime'] = ''
   movieObj['mpaa'] = ''
   return movieObj
+  
+def createKeyObj():
+  #keyObj = {'keyword' : '', 'title': '', 'year' : ''}
+  keyObj = collections.OrderedDict()
+  keyObj['keyword'] = ''
+  keyObj['title'] = ''
+  keyObj['year'] = ''
+  return keyObj
+
+def zipKeyObjs(keywords, movieObj):
+  objs = []
+  for k in keywords:
+    kobj = createKeyObj()
+    kobj['keyword'] = k
+    kobj['title'] = movieObj['title']
+    kobj['year'] = movieObj['year']
+    objs.append(kobj)
+    
+  return objs
+  
+def createNameObj():
+  #editObj = {'name' : '', 'title' : '', 'year' : ''}
+  editObj = collections.OrderedDict()
+  editObj['name'] = ''
+  editObj['title'] = ''
+  editObj['year'] = ''
+  return editObj  
+
+def zipNameObjs(names, movieObj):
+  objs = []
+  for n in names:
+    nobj = createNameObj()
+    nobj['name'] = n
+    nobj['title'] = movieObj['title']
+    nobj['year'] = movieObj['year']
+    objs.append(nobj)
+    
+  return objs
 
 #example order w/ everything --> $windle
 #has to have: title, year lines
@@ -85,7 +128,7 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
       if(movieObj):
         movFile.write('\t'.join(movieObj.values()) + '\n')
         movFile.flush()
-      movieObj = {'title' : '', 'year' : '', 'runtime' : '', 'mpaa' : ''}
+      movieObj = createMovieObj()
       movieObj['title'] = re.findall(regex['title'], line)[0]
       if log:
         print('***%s***' % movieObj['title'])
@@ -107,25 +150,37 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
    
     elif case == 'keywords':
       keywords = re.findall(regex['keywords'], line)
-      keyFile.write('\n'.join(keywords))
+      keyObjs = zipKeyObjs(keywords, movieObj)
+      for k in keyObjs:
+        keyFile.write('\t'.join(k.values()))
+        keyFile.write('\n')
       if log:
         print('keywords: ' + ','.join(keywords))
     
     elif case == 'producers':
       producers = re.findall(regex['producers'], line)
-      prodFile.write('\n'.join(producers))
+      prodObjs = zipNameObjs(producers, movieObj)
+      for p in prodObjs:
+        prodFile.write('\t'.join(p.values()))
+        prodFile.write('\n')
       if log:
         print('producers: ' + ','.join(producers))
       
     elif case == 'directors':
       directors = re.findall(regex['directors'], line)
-      dirFile.write('\n'.join(directors))
+      dirObjs = zipNameObjs(directors, movieObj)
+      for d in dirObjs:
+        dirFile.write('\t'.join(d.values()))
+        dirFile.write('\n')
       if log:
         print('directors: ' + ','.join(directors))
       
     elif case == 'editors':
       editors = re.findall(regex['editors'], line)
-      edFile.write('\n'.join(editors))
+      editObjs = zipNameObjs(editors, movieObj)
+      for e in editObjs:
+        edFile.write('\t'.join(e.values()))
+        edFile.write('\n')
       if log:
         print('editors: ' + ','.join(editors))
       
