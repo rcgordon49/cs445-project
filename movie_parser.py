@@ -89,22 +89,22 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
     elif case == 'keywords':
       keywords = re.findall(regex['keywords'], line)
       keyFile.write('\n'.join(keywords))
-      if log: print(','.join(keywords))
+      if log: print('keywords: ' + ','.join(keywords))
     
     elif case == 'producers':
       producers = re.findall(regex['producers'], line)
       keyFile.write('\n'.join(producers))
-      if log: print(','.join(producers))
+      if log: print('producers: ' + ','.join(producers))
       
     elif case == 'directors':
       directors = re.findall(regex['directors'], line)
       keyFile.write('\n'.join(directors))
-      if log: print(','.join(directors))
+      if log: print('directors: ' + ','.join(directors))
       
     elif case == 'editors':
       editors = re.findall(regex['editors'], line)
       keyFile.write('\n'.join(editors))
-      if log: print(','.join(editors))
+      if log: print('editors: ' + ','.join(editors))
       
     elif case == 'actor':
       proObj = createProObj()
