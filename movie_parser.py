@@ -53,6 +53,15 @@ def createProObj():
   proObj['name'] = ''
   proObj['gender'] = ''
   return proObj
+  
+def createMovieObj():
+  #movieObj = {'title' : '', 'year' : '', 'runtime' : '', 'mpaa' : ''}
+  movieObj = collections.OrderedDict()
+  movieObj['title'] = ''
+  movieObj['year'] = ''
+  movieObj['runtime'] = ''
+  movieObj['mpaa'] = ''
+  return movieObj
 
 #example order w/ everything --> $windle
 #has to have: title, year lines
@@ -71,41 +80,52 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
     if log: print('---CASE---\n%s\n-------------\n' % case)
     
     if case == 'title':
+      if(movieObj):
+        movFile.write('\t'.join(movieObj.values()) + '\n')
+        movFile.flush()
       movieObj = {'title' : '', 'year' : '', 'runtime' : '', 'mpaa' : ''}
       movieObj['title'] = re.findall(regex['title'], line)[0]
-      if log: print('***%s***' % movieObj['title'])
+      if log:
+        print('***%s***' % movieObj['title'])
       
     elif case == 'year':
       movieObj['year'] = re.findall(regex['year'], line)[0]
-      if log: print('Year: %s' % movieObj['year'])
+      if log:
+        print('Year: %s' % movieObj['year'])
       
     elif case == 'runtime':
       movieObj['runtime'] = re.findall(regex['runtime'], line)[0]
-      if log: print('runtime: %s' % movieObj['runtime'])
+      if log:
+        print('runtime: %s' % movieObj['runtime'])
       
     elif case == 'mpaa':
       movieObj['mpaa'] = re.findall(regex['mpaa'], line)[0]
-      if log: print('mpaa: %s' % movieObj['mpaa'])
+      if log:
+        print('mpaa: %s' % movieObj['mpaa'])
    
     elif case == 'keywords':
       keywords = re.findall(regex['keywords'], line)
       keyFile.write('\n'.join(keywords))
-      if log: print('keywords: ' + ','.join(keywords))
+      if log:
+        print('keywords: ' + ','.join(keywords))
     
     elif case == 'producers':
       producers = re.findall(regex['producers'], line)
-      keyFile.write('\n'.join(producers))
-      if log: print('producers: ' + ','.join(producers))
+      prodFile.write('\n'.join(producers))
+      if log:
+        print('producers: ' + ','.join(producers))
       
     elif case == 'directors':
       directors = re.findall(regex['directors'], line)
-      keyFile.write('\n'.join(directors))
-      if log: print('directors: ' + ','.join(directors))
+      dirFile.write('\n'.join(directors))
+      if log:
+        print('directors: ' + ','.join(directors))
       
     elif case == 'editors':
       editors = re.findall(regex['editors'], line)
-      keyFile.write('\n'.join(editors))
-      if log: print('editors: ' + ','.join(editors))
+      edFile.write('\n'.join(editors))
+      if log:
+        print('editors: ' + ','.join(editors))
       
     elif case == 'actor':
       proObj = createProObj()
@@ -135,7 +155,11 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
         
     else:
       print('invalid case')
-      
+    
+  #write out last line
+  if(movieObj):
+    movFile.write('\t'.join(movieObj.values()) + '\n')
+    movFile.flush()
       
       
     
