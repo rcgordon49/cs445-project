@@ -53,11 +53,11 @@ def createActObj():
   actObj['role'] = ''
   return actObj
   
-def createProObj():
+def createProObj(name, gender=''):
   #proObj = {'name' : '', 'gender' : ''}
   proObj = collections.OrderedDict()
-  proObj['name'] = ''
-  proObj['gender'] = ''
+  proObj['name'] = name
+  proObj['gender'] = gender
   return proObj
   
 def createMovieObj():
@@ -166,6 +166,9 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
       for p in prodObjs:
         prodFile.write('\t'.join(p.values()))
         prodFile.write('\n')
+        
+        proObj = createProObj(p['name'])
+        profFile.write('\t'.join(proObj.values()) + '\n')
       if log:
         print('producers: ' + ','.join(producers))             
     elif case == 'directors':
@@ -174,6 +177,9 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
       for d in dirObjs:
         dirFile.write('\t'.join(d.values()))
         dirFile.write('\n')
+        
+        proObj = createProObj(d['name'])
+        profFile.write('\t'.join(proObj.values()) + '\n')
       if log:
         print('directors: ' + ','.join(directors))         
     elif case == 'editors':
@@ -182,15 +188,18 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
       for e in editObjs:
         edFile.write('\t'.join(e.values()))
         edFile.write('\n')
+        
+        proObj = createProObj(e['name'])
+        profFile.write('\t'.join(proObj.values()) + '\n')
+        
       if log:
         print('editors: ' + ','.join(editors))             
     elif case == 'actor':
-      proObj = createProObj()
+      #proObj = createProObj()
       actObj = createActObj()
       
       m = re.match(regex['actor'], line).groupdict()
-      proObj['name'] = m['name']
-      proObj['gender'] = 'M' if m['type'] == 'Actor' else 'F'
+      proObj = createProObj(m['name'], 'M' if m['type'] == 'Actor' else 'F')
       actObj['pro_name'] = m['name']
       actObj['role'] = m['role']
       actObj['title'] = movieObj['title']
