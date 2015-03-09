@@ -1,5 +1,3 @@
-SQL Tables
-
 CREATE TABLE Professionals_Temp
 (pro_name	CHAR(50),
 gender 	CHAR(1));
