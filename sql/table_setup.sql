@@ -1,9 +1,9 @@
 CREATE TABLE Professionals_Temp
-(pro_name	CHAR(50),
+(pro_name	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
 gender 	CHAR(1));
 
 CREATE TABLE Professionals
-(pro_name	CHAR(50),
+(pro_name	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
 PRIMARY KEY (pro_name));
  
 CREATE TABLE Movies
@@ -88,7 +88,7 @@ location        	CHAR(50),
 PRIMARY KEY (email_address));
  
 CREATE TABLE Acts_in_Temp
-(pro_name  	CHAR(50),
+(pro_name	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
 title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year 		INT(4),
 role_name    	CHAR(50),
@@ -101,7 +101,7 @@ ON UPDATE CASCADE,
 PRIMARY KEY (pro_name, title, year));
 
 CREATE TABLE Acts_in
-(pro_name  	CHAR(50),
+(pro_name	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
 mid	INT,
 role_name    	CHAR(50),
 FOREIGN KEY(mid) REFERENCES Movies(mid)
@@ -114,7 +114,7 @@ PRIMARY KEY (pro_name, mid));
 
  
 CREATE TABLE Directs_Temp
-(pro_name  	CHAR(50),
+(pro_name	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
 title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year 		INT(4),
 FOREIGN KEY(title, year) REFERENCES Movies(title, year)
@@ -126,7 +126,7 @@ ON UPDATE CASCADE,
 PRIMARY KEY (pro_name, title, year));
  
 CREATE TABLE Directs
-(pro_name  	CHAR(50),
+(pro_name	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
 mid	INT,
 FOREIGN KEY(mid) REFERENCES Movies(mid)
 ON DELETE CASCADE
@@ -137,7 +137,7 @@ ON UPDATE CASCADE,
 PRIMARY KEY (pro_name, mid));
 
 CREATE TABLE Produces_Temp
-(pro_name  	CHAR(50),
+(pro_name	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
 title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year 		INT(4),
 FOREIGN KEY(title, year) REFERENCES Movies(title, year)
@@ -149,7 +149,7 @@ ON UPDATE CASCADE,
 PRIMARY KEY (pro_name, title, year));
 
 CREATE TABLE Produces
-(pro_name  	CHAR(50),
+(pro_name	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
 mid	INT,
 FOREIGN KEY(mid) REFERENCES Movies(mid)
 ON DELETE CASCADE
@@ -160,7 +160,7 @@ ON UPDATE CASCADE,
 PRIMARY KEY (pro_name, mid));
 
 CREATE TABLE Edits_Temp
-(pro_name  	CHAR(50),
+(pro_name	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
 title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year 		INT(4),
 FOREIGN KEY(title, year) REFERENCES Movies(title, year)
@@ -172,7 +172,7 @@ ON UPDATE CASCADE,
 PRIMARY KEY (pro_name, title, year));
 
 CREATE TABLE Edits
-(pro_name  	CHAR(50),
+(pro_name	CHAR(50) CHARACTER SET latin1 COLLATE latin1_general_cs,
 mid	INT,
 FOREIGN KEY(mid) REFERENCES Movies(mid)
 ON DELETE CASCADE
