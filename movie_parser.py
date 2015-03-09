@@ -63,6 +63,7 @@ def createProObj():
 def createMovieObj():
   #movieObj = {'title' : '', 'year' : '', 'runtime' : ''}
   movieObj = collections.OrderedDict()
+  movieObj['mid'] = 'NULL'
   movieObj['title'] = ''
   movieObj['year'] = ''
   movieObj['runtime'] = ''
