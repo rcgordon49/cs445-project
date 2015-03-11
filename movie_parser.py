@@ -6,10 +6,10 @@ OUTPUT_DIR = 'data/rel_data'
 
 
 #regular expressions for each line of a movie entry
-regex = {'title' : r"\t(.+)",
+regex = {'title' : r"\t([^\t\n]+)",
          'year' : r"\t(\d+)", #year has 4 digits
          'runtime' : r"\t(\d+)",
-         'mpaa' : r"\t(\w{1,4})", #longest letter combo is pg13
+         'mpaa' : r"\t([^\t\n]+)", #longest letter combo is pg13
          'keywords' : r"\t([^\t\n]+)", #each entry is preceded by a tab
          'producers' : r"\t([^\t\n]+)",
          'directors' : r"\t([^\t\n]+)",
@@ -114,9 +114,9 @@ def zipNameObjs(names, movieObj):
 #x = re.match(mregex, mline)
 #x.groupdict()
 log = False
-profList = trie.trie()
+#profList = trie.trie()
 
-with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open('%s/movies_formatted.txt' % OUTPUT_DIR, 'w+') as movFile, open('%s/professional_formatted.txt' % OUTPUT_DIR, 'w+') as profFile, open('%s/keywords_formatted.txt' % OUTPUT_DIR, 'w+') as keyFile,open('%s/directs_formatted.txt' % OUTPUT_DIR, 'w+') as dirFile,open('%s/produces_formatted.txt' % OUTPUT_DIR, 'w+') as prodFile,open('%s/edits_formatted.txt' % OUTPUT_DIR, 'w+') as edFile,open('%s/actsIn_formatted.txt' % OUTPUT_DIR, 'w+') as actRelFile, open('%s/mpaa_formatted.txt' % OUTPUT_DIR, 'w+') as mpaaFile:
+with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open('%s/movies_formatted.txt' % OUTPUT_DIR, 'w+', encoding='latin-1') as movFile, open('%s/professional_formatted.txt' % OUTPUT_DIR, 'w+', encoding='latin-1') as profFile, open('%s/keywords_formatted.txt' % OUTPUT_DIR, 'w+', encoding='latin-1') as keyFile,open('%s/directs_formatted.txt' % OUTPUT_DIR, 'w+', encoding='latin-1') as dirFile,open('%s/produces_formatted.txt' % OUTPUT_DIR, 'w+', encoding='latin-1') as prodFile,open('%s/edits_formatted.txt' % OUTPUT_DIR, 'w+', encoding='latin-1') as edFile,open('%s/actsIn_formatted.txt' % OUTPUT_DIR, 'w+', encoding='latin-1') as actRelFile, open('%s/mpaa_formatted.txt' % OUTPUT_DIR, 'w+', encoding='latin-1') as mpaaFile:
   #movFile, profFile, keyFile, 
   #dirFile, prodFile, edFile, actRelFile,
   #mpaaFile
@@ -135,12 +135,12 @@ with open('%s/movies.txt' % SOURCE_DIR, 'r', encoding='latin-1') as inFile, open
       movieObj['title'] = re.findall(regex['title'], line)[0]
       if log:
         print('***%s***' % movieObj['title'])
-      else:
-        print("(Title, Year) = (%s, %s)" % (movieObj['title'], movieObj['year']))
     elif case == 'year':
       movieObj['year'] = re.findall(regex['year'], line)[0]
       if log:
-        print('Year: %s' % movieObj['year'])           
+        print('Year: %s' % movieObj['year']) 
+      else:
+        print("(Title, Year) = (%s, %s)" % (movieObj['title'], movieObj['year']))          
     elif case == 'runtime':
       movieObj['runtime'] = re.findall(regex['runtime'], line)[0]
       if log:
