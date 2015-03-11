@@ -20,3 +20,11 @@ year 		INT(4),
 PRIMARY KEY (pro_name, title, year));
 
 LOAD DATA INFILE '/nfs/elsrv4/users4/grad/rcgordon/cs445/project/cs445-project/data/rel_data/edits_formatted.txt' INTO TABLE Edits_Test FIELDS TERMINATED BY '\t';
+
+
+LOAD DATA INFILE '/nfs/elsrv4/users4/grad/rcgordon/cs445/project/cs445-project/data/rel_data/genres_formatted.txt' INTO TABLE Has_Genre_Test FIELDS TERMINATED BY '\t';
+
+SELECT            G.*
+FROM              Has_Genre_Test G
+NATURAL LEFT JOIN Movies M
+WHERE             M.title IS NULL;
