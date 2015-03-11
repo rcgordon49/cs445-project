@@ -11,3 +11,7 @@ LOAD DATA INFILE '/nfs/elsrv4/users4/grad/rcgordon/cs445/project/cs445-project/d
 LOAD DATA INFILE '/nfs/elsrv4/users4/grad/rcgordon/cs445/project/cs445-project/data/rel_data/produces_formatted.txt' INTO TABLE Produces_Temp FIELDS TERMINATED BY '\t';
 
 LOAD DATA INFILE '/nfs/elsrv4/users4/grad/rcgordon/cs445/project/cs445-project/data/rel_data/edits_formatted.txt' INTO TABLE Edits_Temp FIELDS TERMINATED BY '\t';
+
+LOAD DATA INFILE '/nfs/elsrv4/users4/grad/rcgordon/cs445/project/cs445-project/data/rel_data/mpaa_formatted.txt' INTO TABLE Has_Mpaa_Rating_Temp FIELDS TERMINATED BY '\t';
+
+LOAD DATA INFILE '/nfs/elsrv4/users4/grad/rcgordon/cs445/project/cs445-project/data/orig_data/ratings.txt' INTO TABLE Rates_Temp FIELDS TERMINATED BY '\t';

@@ -182,7 +182,7 @@ ON DELETE CASCADE
 ON UPDATE CASCADE,
 PRIMARY KEY (pro_name, mid));
 
- CREATE TABLE Rates_Temp
+CREATE TABLE Rates_Temp
 (email_address    	CHAR(50),
 title 		CHAR(250) CHARACTER SET latin1 COLLATE latin1_general_cs,
 year 			INT(4),
@@ -195,7 +195,7 @@ ON DELETE CASCADE
 ON UPDATE CASCADE,
 PRIMARY KEY (email_address, title, year));
 
- CREATE TABLE Rates
+CREATE TABLE Rates
 (email_address    	CHAR(50),
 mid	INT,
 user_rating  		INT(2),
