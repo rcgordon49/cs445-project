@@ -1,3 +1,3 @@
-SELECT P.proname
+SELECT P.pro_name
 FROM Professionals P, Directs D, Acts_in A
-WHERE P.proname = D.proname AND A.mid = D.did;
+WHERE P.pro_name = D.pro_name AND A.mid = D.mid;
