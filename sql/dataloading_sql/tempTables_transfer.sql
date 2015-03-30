@@ -32,3 +32,8 @@ INSERT INTO Has_Mpaa_Rating(mid, mpaa_rating)
 SELECT M.mid, H.mpaa_rating
 FROM Has_Mpaa_Rating_Temp H, Movies M
 WHERE H.title = M.title AND H.year = M.year;
+
+INSERT INTO Has_Genre(mid, genre)
+SELECT M.mid, H.genre
+FROM Has_Genre_Temp H, Movies M
+WHERE H.title = M.title AND H.year = M.year;
