@@ -1,3 +1,3 @@
-SELECT P.proname
-FROM Professionals P, Directs D, Acts_in A
-WHERE P.proname = D.proname AND A.mid = D.did;
+SELECT DISTINCT A.pro_name
+FROM Directs D, Acts_in A
+WHERE A.mid = D.mid AND D.pro_name = "Spielberg, Steven";
