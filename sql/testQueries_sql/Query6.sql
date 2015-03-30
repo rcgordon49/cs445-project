@@ -1,4 +1,4 @@
-SELECT DISTINCT M.mid, M.year, avg(U.age)
+SELECT DISTINCT M.title, M.year, avg(U.age)
 FROM Users U, Movies M, Rates R
 WHERE M.mid = R.mid AND R.email_address = U.email_address
 GROUP BY M.mid
