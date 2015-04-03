@@ -13,10 +13,6 @@ CREATE TABLE Avg_Ratings
  UNIQUE (title, year),
  PRIMARY KEY (mid));
  
- INSERT INTO Edits(pro_name, mid)
-SELECT E.pro_name, M.mid
-FROM Edits_Temp E, Movies M
-WHERE E.title = M.title AND E.year = M.year;
 
 INSERT INTO Avg_Ratings(mid, title, year, num_rates, avg_rating)
 SELECT DISTINCT M.mid, M.title, M.year, 
