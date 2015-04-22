@@ -27,6 +27,9 @@
 	}
 	else {
 		echo "Wrong Username or Password";
+		echo $myemail;
+		echo $mypassword;
+		echo $result;
 	}
 ?>
 
