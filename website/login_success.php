@@ -1,7 +1,7 @@
 <?php
 session_start();
-if(!session_is_registered(myusername)){
-header("location:login");
+if(!session_is_registered(myemail)){
+header("location:login.html");
 }
 ?>
 

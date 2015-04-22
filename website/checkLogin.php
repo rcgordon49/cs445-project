@@ -11,7 +11,7 @@
 	$mypassword = stripslashes($mypassword);
 	$myemail = mysql_real_escape_string($myemail);
 	$mypassword = mysql_real_escape_string($mypassword);
-	$query="SELECT * FROM Users WHERE email='$myemail' and password='$mypassword'";
+	$query="SELECT * FROM Users WHERE email_address='$myemail' and password='$mypassword'";
 	$result=mysql_query($query);
 
 	// Mysql_num_row is counting table row
@@ -26,10 +26,11 @@
 		header("location:login_success.php");
 	}
 	else {
-		echo "Wrong Username or Password";
-		echo $myemail;
-		echo $mypassword;
-		echo $result;
+		echo "Wrong Email or Password\n";
+		echo "\n  $myemail";
+		echo "\n $mypassword";
+		echo "\n $result";
+		echo "\n $count";
 	}
 ?>
 

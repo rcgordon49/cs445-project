@@ -9,5 +9,5 @@
 	if (!mysql_select_db("DGS"))
 		die ("Couldn't select a database!<br> Error: " . mysql_error());
 	else
-		echo "Databse selected successfully.<br>\n";
+		echo "Database selected successfully.<br>\n";
 ?>
