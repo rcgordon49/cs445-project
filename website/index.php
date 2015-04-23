@@ -49,6 +49,7 @@
   			<option value="genre">Genre</option>
   			<option value="year">Year</option>
 			<option value = "user">User</option>
+			<option value = "professional">Professional</option>
 		</select>
 		
 		<input type="submit" name="search" value="search" align="right">
