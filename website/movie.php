@@ -11,6 +11,7 @@
 	*/
 	
 	if(isset($_GET['rating'])){
+		$rating = $_GET['rating'];
 		echo "Rating = $rating";
 	}
 	else{
@@ -80,6 +81,17 @@
 <body>
 <div class="container">
 
+<!-- Search Grid -->
+<div class="row">
+<div class="col-cs-7">
+</div>
+<div class="col-cs-5">
+<?php include bar.php ?>
+</div>
+</div>
+
+
+<!-- Main Page Grid: -->
 <div class="row">
 <div class="col-xs-8">
 
