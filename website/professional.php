@@ -1,30 +1,12 @@
 <?PHP
-/*
-TO DO:
-
--- hitting rate will cycle back to the page w/o the original $mid (reverting to default)
--- so feed current mid to the aciton.php file
-
-*/
-
-/*
-	if($_POST && isset($_POST['rating'])) {
-		if (empty($_POST["rating"])) {
-			echo "Need to rate something.";
-		} else {
-    	$rating = test_input($_POST["rateButton"]);
-    	echo "You have chosen to rate this movie: $rating";
-  	}
-	}
-	*/
 	
-	if(isset($_GET['mid'])){
-		$mid = $_GET['mid'];
-		echo "mid = $mid";
+	if(isset($_GET['pro_name'])){
+		$mid = $_GET['pro_name'];
+		echo "pro_name = $pro_name";
 	}
 	else{
-		echo "No mid";
-		$mid = 300352; //default movie is "Hard to Kill" 2007
+		echo "No name";
+		$pro_name = "Pitt, Brad"; //default 
 	}
 	
 	if(isset($_GET['rating'])){
