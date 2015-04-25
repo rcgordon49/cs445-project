@@ -39,7 +39,7 @@ TO DO:
   //$year = "1990";
   
   include("dbConnect.php");
-  $movieQuery="SELECT * FROM Movies M WHERE M.mid=$mid";
+  $movieQuery="SELECT * FROM Movies M WHERE M.mid='$mid'";
   $movieResults=mysql_query($movieQuery);
   $movieCount=mysql_num_rows($movieResults);
   
@@ -51,19 +51,19 @@ TO DO:
 	$watchResults=mysql_query($watchQuery);
 	$watchCount=mysql_num_rows($watchResults);
 	
-	$avgQuery="SELECT * FROM Avg_Ratings A WHERE A.mid = $mid";
+	$avgQuery="SELECT * FROM Avg_Ratings A WHERE A.mid = '$mid'";
 	$avgResults = mysql_query($avgQuery);
 	$avgCount = mysql_num_rows($avgResults);
 	
-	$keywordsQuery = "SELECT * FROM Has_Key_Word K WHERE K.mid=$mid";
+	$keywordsQuery = "SELECT * FROM Has_Key_Word K WHERE K.mid='$mid'";
 	$keywordResults = mysql_query($keywordsQuery);
 	$keyCount = mysql_num_rows($keywordResults);
 	
-	$genresQuery = "SELECT * FROM Has_Genre G WHERE G.mid=$mid";
+	$genresQuery = "SELECT * FROM Has_Genre G WHERE G.mid='$mid'";
 	$genreResults = mysql_query($genresQuery);
 	$genreCount = mysql_num_rows($genreResults);
 	
-	$mpaaQuery = "SELECT R.mpaa_rating, R.definition FROM Mpaa_Rating R, Has_Mpaa_Rating H, Movies M WHERE M.mid=H.mid AND H.mpaa_rating=R.mpaa_rating";
+	$mpaaQuery = "SELECT R.mpaa_rating, R.definition FROM Mpaa_Rating R, Has_Mpaa_Rating H, Movies M WHERE M.mid='$mid' AND M.mid=H.mid AND H.mpaa_rating=R.mpaa_rating";
 	$mpaaResults = mysql_query($mpaaQuery);
 	$mpaaCount = mysql_num_rows($mpaaResults);
 	

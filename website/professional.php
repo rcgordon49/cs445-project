@@ -1,75 +1,37 @@
 <?PHP
 	
 	if(isset($_GET['pro_name'])){
-		$mid = $_GET['pro_name'];
+		$pro_name = $_GET['pro_name'];
 		echo "pro_name = $pro_name";
 	}
 	else{
 		echo "No name";
 		$pro_name = "Pitt, Brad"; //default 
 	}
-	
-	if(isset($_GET['rating'])){
-		$rating = $_GET['rating'];
-		echo "Rating = $rating";
-	}
-	else{
-		echo "No rating";
-	}
-
-  //$title = "Hard to Kill";
-  //$year = "1990";
   
   include("dbConnect.php");
-  $movieQuery="SELECT * FROM Movies M WHERE M.mid=$mid";
-  $movieResults=mysql_query($movieQuery);
-  $movieCount=mysql_num_rows($movieResults);
   
-	$row = mysql_fetch_array($movieResults);
-	$title = $row[1];
-	$year = $row[2];
-  
-  $watchQuery="SELECT U.name, W.email_address, W.mid, W.watch_time FROM Watches W, Users U WHERE W.email_address = U.email_address AND mid='$mid' ORDER BY watch_time";
-	$watchResults=mysql_query($watchQuery);
-	$watchCount=mysql_num_rows($watchResults);
+  $actQuery="SELECT A.role_name, M.mid, M.title, M.year FROM Acts_in A, Movies M WHERE A.pro_name='$pro_name' AND A.mid=M.mid";
+	$actResults=mysql_query($actQuery);
+	$actCount=mysql_num_rows($actResults);
 	
-	$avgQuery="SELECT * FROM Avg_Ratings A WHERE A.mid = $mid";
-	$avgResults = mysql_query($avgQuery);
-	$avgCount = mysql_num_rows($avgResults);
+	$dirQuery="SELECT M.mid, M.title, M.year FROM Directs D, Movies M WHERE D.pro_name='$pro_name' AND D.mid=M.mid";
+	$dirResults=mysql_query($dirQuery);
+	$dirCount=mysql_num_rows($dirResults);
 	
-	$keywordsQuery = "SELECT * FROM Has_Key_Word K WHERE K.mid=$mid";
-	$keywordResults = mysql_query($keywordsQuery);
-	$keyCount = mysql_num_rows($keywordResults);
+	$prodQuery="SELECT M.mid, M.title, M.year FROM Produces P, Movies M WHERE P.pro_name='$pro_name' AND P.mid=M.mid";
+	$prodResults=mysql_query($prodQuery);
+	$prodCount=mysql_num_rows($prodResults);
 	
-	$genresQuery = "SELECT * FROM Has_Genre G WHERE G.mid=$mid";
-	$genreResults = mysql_query($genresQuery);
-	$genreCount = mysql_num_rows($genreResults);
-	
-	$mpaaQuery = "SELECT R.mpaa_rating, R.definition FROM Mpaa_Rating R, Has_Mpaa_Rating H, Movies M WHERE M.mid=H.mid AND H.mpaa_rating=R.mpaa_rating";
-	$mpaaResults = mysql_query($mpaaQuery);
-	$mpaaCount = mysql_num_rows($mpaaResults);
-	
-	$castQuery = "SELECT * FROM Acts_in A WHERE A.mid='$mid' ORDER BY pro_name";
-	$castResults = mysql_query($castQuery);
-	$castCount = mysql_num_rows($castResults);
-	
-	$dirQuery = "SELECT * FROM Directs D WHERE D.mid='$mid' ORDER BY pro_name";
-	$dirResults = mysql_query($dirQuery);
-	$dirCount = mysql_num_rows($dirResults);
-	
-	$prodQuery = "SELECT * FROM Poduces P WHERE P.mid='$mid' ORDER BY pro_name";
-	$prodResults = mysql_query($prodQuery);
-	$prodCount = mysql_num_rows($prodResults);
-	
-	$editQuery = "SELECT * FROM Poduces P WHERE P.mid='$mid' ORDER BY pro_name";
-	$editResults = mysql_query($editQuery);
-	$editCount = mysql_num_rows($editResults);
+	$editQuery="SELECT M.mid, M.title, M.year FROM Edits E, Movies M WHERE E.pro_name='$pro_name' AND E.mid=M.mid";
+	$editResults=mysql_query($editQuery);
+	$editCount=mysql_num_rows($editResults);
 	
 ?>
 <!DOCTYPE html>
 <html lang="en">
  <head>
- 		<title><?php echo "$title"?></title>
+ 		<title><?php echo "$pro_name"?></title>
     <meta charset="utf-8">
     
     <!-- bootstrap libraryies: -->
@@ -107,132 +69,105 @@
 <?php include("bar.php") ?>
 </div>
 </div>
+<!-- End Search Grid -->
 
 
 <!-- Main Page Grid: -->
 <div class="row">
-<div class="col-xs-8">
+<div class="col-xs-1">
+</div>
+<div class="col-xs-10">
 
 <div id="titleBox">
-<?php echo "$title ($year)</br>"; ?>
+<?php echo "$pro_name</br>"; ?>
 </div>
 
+<!-- Accordian Time -->
+<div class="panel-group" id="role-lists">
+
+<!-- actor panel -->
 <div class="panel panel-default">
-<div id="infoBox" class="panel-body">
-<?php 
-
-//displays average rating of movie
-if ($avgCount == 0){
-	echo "Average Rating: This movie has not yet been rated.";
-}
-else{
-	$row = mysql_fetch_array($avgResults);
-	echo "Average Rating: $row[4]";
-}
-echo "</br></br>";
-?>
-
-<form method="POST" action="rateAction.php" accept-charset="UTF-8" class="form-inline" role="form">
-  <label class="radio-inline"><input type="radio" name="rating" value="1">1</label>
-  <label class="radio-inline"><input type="radio" name="rating" value="2">2</label>
-  <label class="radio-inline"><input type="radio" name="rating" value="3">3</label>
-  <label class="radio-inline"><input type="radio" name="rating" value="4">4</label>
-  <label class="radio-inline"><input type="radio" name="rating" value="5">5</label>
-  <label class="radio-inline"><input type="radio" name="rating" value="6">6</label>
-  <label class="radio-inline"><input type="radio" name="rating" value="7">7</label>
-  <label class="radio-inline"><input type="radio" name="rating" value="8">8</label>
-  <label class="radio-inline"><input type="radio" name="rating" value="9">9</label>
-  <label class="radio-inline"><input type="radio" name="rating" value="10">10</label>
-  <button type="submit" name="rateButton" class="btn btn-default">Rate</button>
-</form>
-
-<?php
-//displays list of genres that describe the movie
-if ($genreCount == 0){
-	echo "Genres: none";
-}
-else{
-	echo "Genres:&emsp;&emsp;";
-	while ($row = mysql_fetch_array($genreResults)){
-			echo "$row[1]&emsp;&emsp;";
-	}
-}
-echo "</br></br>";
- 
-//displays list of keywords that belong to the movie
-if ($keyCount == 0){
-	echo "Keywords: none";
-}
-else{
-	echo "Keywords:&emsp;&emsp;";
-	while ($row = mysql_fetch_array($keywordResults)){
-			echo "$row[0]&emsp;&emsp;";
-	}
-}
-echo "</br></br>";
-
-//displays mpaa rating of movie
-if ($mpaaCount == 0){
-	echo "This movie not yet rated.";
-}
-else{
-	$row = mysql_fetch_array($mpaaResults);
-	echo "Rated $row[0]&emsp;&emsp;$row[1]";
-}
-echo "</br></br>";
-	
-?>
+<div class="panel-heading">
+<h3 class="panel-title"><a data-toggle="collapse" data-parent="#role-lists" href="#actorPanel">Actor</a></h3>
+<h4><?php echo "($actCount roles)" ?></h4>
 </div>
-</div>
-
-<div class="panel panel-default">
-<div id="crewBox" class="panel-body">
-<h3>Crew List</h3>
-<?php
-
-//displays list of directors
-echo "Directors:&emsp;&emsp;";
-if ($dirCount > 0){
-	while ($row = mysql_fetch_array($dirResults)){
-			echo "$row[0]&emsp;&emsp;";
-	}
-}
-echo "</br></br>";
-
-//displays list of producers
-echo "Producers:&emsp;&emsp;";
-if ($prodCount > 0){
-	while ($row = mysql_fetch_array($prodResults)){
-			echo "$row[0]&emsp;&emsp;";
-	}
-}
-echo "</br></br>";
-
-//displays list of editors
-echo "Editors:&emsp;&emsp;";
-if ($editCount > 0){
-	while ($row = mysql_fetch_array($editResults)){
-			echo "$row[0]&emsp;&emsp;";
-	}
-}
-echo "</br></br>";
-
-?>
-</div>
-</div>
-
-<div class="panel panel-default">
-<div id="castBox" class="panel-body">
-<h3>Cast List</h3>
+<div id="actorPanel" class="panel-collapse collapse">
+<div class="panel-body">
 <ul class="list-group">
 <?php
-//displays cast
-if ($keyCount == 0){
-	echo "no actors";
+if ($actCount > 0){
+	while ($row = mysql_fetch_array($actResults)){
+			echo "<li class=\"list-group-item\">$row[0]&emsp;&emsp;$row[2]&emsp;($row[3])</li>";
+	}
 }
-else{
-	while ($row = mysql_fetch_array($castResults)){
-			echo "<li class=\"list-group-item\">$row[0]&emsp;&emsp;$row[2]</li>";
+echo "</ul></br></br>";
+?>
+</div>
+</div>
+</div>
+
+<!-- director panel -->
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title"><a data-toggle="collapse" data-parent="#role-lists" href="#directorPanel">Director</a></h3>
+<h4><?php echo "($dirCount roles)" ?></h4>
+</div>
+<div id="directorPanel" class="panel-collapse collapse">
+<div class="panel-body">
+<ul class="list-group">
+<?php
+if ($dirCount > 0){
+	while ($row = mysql_fetch_array($dirResults)){
+			echo "<li class=\"list-group-item\">$row[1]&emsp;&emsp;($row[2])</li>";
+	}
+}
+echo "</ul></br></br>";
+?>
+</div>
+</div>
+</div>
+
+
+<!-- producer panel -->
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title"><a data-toggle="collapse" data-parent="#role-lists" href="#producerPanel">Producer</a></h3>
+<h4><?php echo "($prodCount roles)" ?></h4>
+</div>
+<div id="producerPanel" class="panel-collapse collapse">
+<div class="panel-body">
+<ul class="list-group">
+<?php
+if ($prodCount > 0){
+	while ($row = mysql_fetch_array($prodResults)){
+			echo "<li class=\"list-group-item\">$row[1]&emsp;&emsp;($row[2])</li>";
+	}
+}
+echo "</ul></br></br>";
+?>
+</div>
+</div>
+</div>
+
+
+<!-- editor panel -->
+
+
+</div>
+
+<!-- End Accordian Time -->
+
+<?php
+/*
+<div class="panel panel-default">
+<div id="actBox" class="panel-body">
+<h3>Actor</h3>
+<h4><?php echo "($actCount roles)" ?></h4>
+<ul class="list-group">
+<?php
+if ($actCount > 0){
+	while ($row = mysql_fetch_array($actResults)){
+			echo "<li class=\"list-group-item\">$row[0]&emsp;&emsp;$row[2]&emsp;($row[3])</li>";
 	}
 }
 echo "</ul></br></br>";
@@ -240,23 +175,67 @@ echo "</ul></br></br>";
 </div>
 </div>
 
-</div>
-<div class="col-xs-4">
-<div id="watchesBar" class="list-group">
-<?php 
-
-if ($watchCount == 0){
-	echo "<a href=\"#\" class=\"list-group-item\">No one has watched this movie yet.</a>";
-}
-else{
-	while ($row = mysql_fetch_array($watchResults)){
-			echo "<a href=\"user.php?email=$row[1]\" class=\"list-group-item\">$row[0]</br>Watched $title @ $row[3]</a>";
+<div class="panel panel-default">
+<div id="dirBox" class="panel-body">
+<h3>Director</h3>
+<h4><?php echo "($dirCount roles)" ?></h4>
+<ul class="list-group">
+<?php
+if ($dirCount > 0){
+	while ($row = mysql_fetch_array($dirResults)){
+			echo "<li class=\"list-group-item\">$row[1]&emsp;&emsp;($row[2])</li>";
 	}
 }
+echo "</ul></br></br>";
 ?>
 </div>
 </div>
+
+<div class="panel panel-default">
+<div id="prodBox" class="panel-body">
+<h3>Producer</h3>
+<h4><?php echo "($prodCount roles)" ?></h4>
+<ul class="list-group">
+<?php
+if ($prodCount > 0){
+	while ($row = mysql_fetch_array($prodResults)){
+			echo "<li class=\"list-group-item\">$row[1]&emsp;&emsp;($row[2])</li>";
+	}
+}
+echo "</ul></br></br>";
+?>
 </div>
+</div>
+
+<div class="panel panel-default">
+<div id="editBox" class="panel-body">
+<h3>Editor</h3>
+<h4><?php echo "($editCount roles)" ?></h4>
+<ul class="list-group">
+<?php
+if ($editCount > 0){
+	while ($row = mysql_fetch_array($editResults)){
+			echo "<li class=\"list-group-item\">$row[1]&emsp;&emsp;($row[2])</li>";
+	}
+}
+echo "</ul></br></br>";
+?>
+</div>
+</div>
+
+*/
+?>
+</div>
+<div class="col-xs-1">
+
+</div>
+</div>
+<!-- End Main Page Grid -->
+
+
+
+</div>
+
 
 </body>
 </html>
