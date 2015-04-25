@@ -27,10 +27,6 @@
 	}
 	else {
 		echo "Wrong Email or Password\n";
-		echo "\n  $myemail";
-		echo "\n $mypassword";
-		echo "\n $result";
-		echo "\n $count";
 	}
 ?>
 
