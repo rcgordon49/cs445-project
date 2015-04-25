@@ -23,7 +23,7 @@
 	// Register $myemail, $mypassword and redirect to file "login_success.php"
 		session_register("myemail");
 		session_register("mypassword"); 
-		header("location:login_success.php");
+		header("location:login_success.php?email=".urlencode($myemail));
 	}
 	else {
 		echo "Wrong Email or Password\n";
