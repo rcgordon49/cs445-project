@@ -151,66 +151,13 @@ echo "</ul></br></br>";
 
 
 <!-- editor panel -->
-
-
-</div>
-
-<!-- End Accordian Time -->
-
-<?php
-/*
 <div class="panel panel-default">
-<div id="actBox" class="panel-body">
-<h3>Actor</h3>
-<h4><?php echo "($actCount roles)" ?></h4>
-<ul class="list-group">
-<?php
-if ($actCount > 0){
-	while ($row = mysql_fetch_array($actResults)){
-			echo "<li class=\"list-group-item\">$row[0]&emsp;&emsp;$row[2]&emsp;($row[3])</li>";
-	}
-}
-echo "</ul></br></br>";
-?>
-</div>
-</div>
-
-<div class="panel panel-default">
-<div id="dirBox" class="panel-body">
-<h3>Director</h3>
-<h4><?php echo "($dirCount roles)" ?></h4>
-<ul class="list-group">
-<?php
-if ($dirCount > 0){
-	while ($row = mysql_fetch_array($dirResults)){
-			echo "<li class=\"list-group-item\">$row[1]&emsp;&emsp;($row[2])</li>";
-	}
-}
-echo "</ul></br></br>";
-?>
-</div>
-</div>
-
-<div class="panel panel-default">
-<div id="prodBox" class="panel-body">
-<h3>Producer</h3>
-<h4><?php echo "($prodCount roles)" ?></h4>
-<ul class="list-group">
-<?php
-if ($prodCount > 0){
-	while ($row = mysql_fetch_array($prodResults)){
-			echo "<li class=\"list-group-item\">$row[1]&emsp;&emsp;($row[2])</li>";
-	}
-}
-echo "</ul></br></br>";
-?>
-</div>
-</div>
-
-<div class="panel panel-default">
-<div id="editBox" class="panel-body">
-<h3>Editor</h3>
+<div class="panel-heading">
+<h3 class="panel-title"><a data-toggle="collapse" data-parent="#role-lists" href="#editorPanel">Editor</a></h3>
 <h4><?php echo "($editCount roles)" ?></h4>
+</div>
+<div id="editorPanel" class="panel-collapse collapse">
+<div class="panel-body">
 <ul class="list-group">
 <?php
 if ($editCount > 0){
@@ -222,9 +169,11 @@ echo "</ul></br></br>";
 ?>
 </div>
 </div>
+</div>
 
-*/
-?>
+</div>
+<!-- End Accordian Time -->
+
 </div>
 <div class="col-xs-1">
 

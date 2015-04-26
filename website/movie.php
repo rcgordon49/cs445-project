@@ -17,7 +17,6 @@ TO DO:
   	}
 	}
 	*/
-	
 	if(isset($_GET['mid'])){
 		$mid = $_GET['mid'];
 		echo "mid = $mid";
@@ -34,6 +33,11 @@ TO DO:
 	else{
 		echo "No rating";
 	}
+	
+	if(isset($_GET['success'])){
+		echo "success status: $_GET[success].";
+	}
+	
 
   //$title = "Hard to Kill";
   //$year = "1990";
@@ -83,7 +87,15 @@ TO DO:
 	$editResults = mysql_query($editQuery);
 	$editCount = mysql_num_rows($editResults);
 	
+	$watchUrl = "watchAction.php?mid=$mid";
 ?>
+<script type="text/javascript">
+	function watch(){
+		//window.alert("<?php echo $watchUrl; ?>");
+		window.location.href = "<?php echo $watchUrl; ?>";
+	}
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
  <head>
@@ -97,8 +109,6 @@ TO DO:
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<!-- Latest compiled JavaScript -->
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
- 
- 		<link rel="stylesheet" type="text/css" href="movieStyle.css"/>
  		
  		<style>
  			#titleBox{
@@ -161,6 +171,7 @@ echo "</br></br>";
   <label class="radio-inline"><input type="radio" name="rating" value="8">8</label>
   <label class="radio-inline"><input type="radio" name="rating" value="9">9</label>
   <label class="radio-inline"><input type="radio" name="rating" value="10">10</label>
+  <input type="hidden" name="mid" value=<?php echo "\"$mid\""; ?>>
   <button type="submit" name="rateButton" class="btn btn-default">Rate</button>
 </form>
 
@@ -261,6 +272,8 @@ echo "</ul></br></br>";
 </div>
 <div class="col-xs-4">
 <div id="watchesBar" class="list-group">
+<button type="button" class="btn btn-default" onclick="watch();">I just watched this movie!</button>
+</br></br>
 <?php 
 
 if ($watchCount == 0){
