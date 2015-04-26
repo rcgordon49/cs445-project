@@ -17,7 +17,7 @@ CREATE TABLE Avg_Ratings
 
 INSERT INTO Avg_Ratings(mid, title, year, num_rates, avg_rating, avg_user_age)
 SELECT DISTINCT M.mid, M.title, M.year, 
-    count(R.user_rating) as num_rates, avg(R.user_rating) AS avg_rating,
+    count(R.user_rating) AS num_rates, avg(R.user_rating) AS avg_rating,
     avg(U.age) AS avg_user_age
 FROM Movies M, Rates R, Users U
 WHERE R.mid = M.mid AND R.email_address = U.email_address
