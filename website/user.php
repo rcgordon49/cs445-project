@@ -6,6 +6,7 @@
 
 	if(isset($_GET['email'])){
 	  	$email = $_GET['email'];
+	  	$followUrl = "followAction.php?email=$email";
 
 	  	$user_info_query = "SELECT * FROM Users U WHERE U.email_address = '$email'";
 
@@ -56,12 +57,7 @@
 
 <script type = "text/javascript">
 function follow() {
-    <?PHP
-    	if(isset($email)){
-	    	$query = "INSERT INTO Follows(email1,email2,follow_time) VALUES ('$_SESSION[email]','$email',default)";
-	    	mysql_query($query);
-    	}
-    ?>
+	window.location.href = "<?php echo $followUrl; ?>";
 }
 </script>
 
@@ -119,7 +115,15 @@ function follow() {
 						$owner = "$email";
 
 						if(isset($_SESSION['email'])){
-							echo '<input onClick="follow()" type="submit" name="follow" value="Follow">';
+    					$existQuery = "SELECT * FROM Follows WHERE email1='$_SESSION[email]' AND email2='$email'";
+    					$existResults = mysql_query($existQuery);
+    					if(mysql_num_rows($existResults) > 0){
+								$buttonText = "Unfollow";
+    					}
+    					else{
+			    			$buttonText = "Follow";
+  			  		}    		
+							echo "<input onClick=\"follow()\" type=\"submit\" name=\"follow\" value=\"$buttonText\">";
 						}
 					}
 				}
@@ -128,6 +132,7 @@ function follow() {
 				}
 
 			?>
+			
 		</div>
 		
 		<div class = "col-xs-6">
