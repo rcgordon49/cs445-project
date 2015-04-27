@@ -79,11 +79,11 @@ TO DO:
 	$dirResults = mysql_query($dirQuery);
 	$dirCount = mysql_num_rows($dirResults);
 	
-	$prodQuery = "SELECT * FROM Poduces P WHERE P.mid='$mid' ORDER BY pro_name";
+	$prodQuery = "SELECT * FROM Produces P WHERE P.mid='$mid' ORDER BY pro_name";
 	$prodResults = mysql_query($prodQuery);
 	$prodCount = mysql_num_rows($prodResults);
 	
-	$editQuery = "SELECT * FROM Poduces P WHERE P.mid='$mid' ORDER BY pro_name";
+	$editQuery = "SELECT * FROM Edits E WHERE E.mid='$mid' ORDER BY pro_name";
 	$editResults = mysql_query($editQuery);
 	$editCount = mysql_num_rows($editResults);
 	
@@ -100,15 +100,19 @@ TO DO:
 <html lang="en">
  <head>
  		<title><?php echo "$title"?></title>
-    <meta charset="utf-8">
+    <meta charset=iso-8859-1">
     
     <!-- bootstrap libraryies: -->
     <!-- Latest compiled and minified CSS -->
+    
+    <!--
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
 		<!-- jQuery library -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<!-- Latest compiled JavaScript -->
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+ 		-->
+
  		
  		<style>
  			#titleBox{
@@ -123,13 +127,15 @@ TO DO:
 
  </head>
 <body>
+<?php include("import.php"); ?>
+
 <div class="container">
 
 <!-- Search Grid -->
 <div class="row">
-<div class="col-cs-7">
+<div class="col-xs-7">
 </div>
-<div class="col-cs-5">
+<div class="col-xs-5">
 <?php include("bar.php") ?>
 </div>
 </div>
@@ -221,7 +227,7 @@ echo "</br></br>";
 echo "Directors:&emsp;&emsp;";
 if ($dirCount > 0){
 	while ($row = mysql_fetch_array($dirResults)){
-			echo "$row[0]&emsp;&emsp;";
+			echo "<a href=\"professional.php?pro_name=$row[0]\">$row[0]</a>&emsp;&emsp;";
 	}
 }
 echo "</br></br>";
@@ -230,7 +236,7 @@ echo "</br></br>";
 echo "Producers:&emsp;&emsp;";
 if ($prodCount > 0){
 	while ($row = mysql_fetch_array($prodResults)){
-			echo "$row[0]&emsp;&emsp;";
+			echo "<a href=\"professional.php?pro_name=$row[0]\">$row[0]</a>&emsp;&emsp;";
 	}
 }
 echo "</br></br>";
@@ -239,7 +245,7 @@ echo "</br></br>";
 echo "Editors:&emsp;&emsp;";
 if ($editCount > 0){
 	while ($row = mysql_fetch_array($editResults)){
-			echo "$row[0]&emsp;&emsp;";
+			echo "<a href=\"professional.php?pro_name=$row[0]\">$row[0]</a>&emsp;&emsp;";
 	}
 }
 echo "</br></br>";
@@ -251,7 +257,7 @@ echo "</br></br>";
 <div class="panel panel-default">
 <div id="castBox" class="panel-body">
 <h3>Cast List</h3>
-<ul class="list-group">
+<div class="list-group">
 <?php
 //displays cast
 if ($keyCount == 0){
@@ -259,10 +265,10 @@ if ($keyCount == 0){
 }
 else{
 	while ($row = mysql_fetch_array($castResults)){
-			echo "<li class=\"list-group-item\">$row[0]&emsp;&emsp;$row[2]</li>";
+			echo "<a href=\"professional.php?pro_name=$row[0]\" class=\"list-group-item\">$row[0]&emsp;&emsp;$row[2]</a>";
 	}
 }
-echo "</ul></br></br>";
+echo "</div></br></br>";
 ?>
 </div>
 </div>

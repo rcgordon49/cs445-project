@@ -32,7 +32,7 @@
 <html lang="en">
  <head>
  		<title><?php echo "$pro_name"?></title>
-    <meta charset="utf-8">
+    <meta charset=iso-8859-1">
     
     <!-- bootstrap libraryies: -->
     <!-- Latest compiled and minified CSS -->
@@ -66,7 +66,7 @@
 <div class="col-cs-7">
 </div>
 <div class="col-cs-5">
-<?php include("bar.php") ?>
+<?php include("bar2.php") ?>
 </div>
 </div>
 <!-- End Search Grid -->
@@ -93,14 +93,20 @@
 </div>
 <div id="actorPanel" class="panel-collapse collapse">
 <div class="panel-body">
-<ul class="list-group">
+<div class="list-group">
 <?php
 if ($actCount > 0){
 	while ($row = mysql_fetch_array($actResults)){
-			echo "<li class=\"list-group-item\">$row[0]&emsp;&emsp;$row[2]&emsp;($row[3])</li>";
+			if($row[0] == ''){
+				$roleStr = "--&emsp;&emsp;$row[2]&emsp;($row[3])";
+			}
+			else{
+				$roleStr = "$row[0]&emsp;&emsp;$row[2]&emsp;($row[3])";
+			}
+			echo "<a href=\"movie.php?mid=$row[1]\" class=\"list-group-item\">$roleStr</a>";
 	}
 }
-echo "</ul></br></br>";
+echo "</div></br></br>";
 ?>
 </div>
 </div>
@@ -114,14 +120,14 @@ echo "</ul></br></br>";
 </div>
 <div id="directorPanel" class="panel-collapse collapse">
 <div class="panel-body">
-<ul class="list-group">
+<div class="list-group">
 <?php
 if ($dirCount > 0){
 	while ($row = mysql_fetch_array($dirResults)){
-			echo "<li class=\"list-group-item\">$row[1]&emsp;&emsp;($row[2])</li>";
+			echo "<a href=\"movie.php?mid=$row[0]\" class=\"list-group-item\">$row[1]&emsp;&emsp;($row[2])</a>";
 	}
 }
-echo "</ul></br></br>";
+echo "</div></br></br>";
 ?>
 </div>
 </div>
@@ -136,14 +142,14 @@ echo "</ul></br></br>";
 </div>
 <div id="producerPanel" class="panel-collapse collapse">
 <div class="panel-body">
-<ul class="list-group">
+<div class="list-group">
 <?php
 if ($prodCount > 0){
 	while ($row = mysql_fetch_array($prodResults)){
-			echo "<li class=\"list-group-item\">$row[1]&emsp;&emsp;($row[2])</li>";
+			echo "<a href=\"movie.php?mid=$row[0]\" class=\"list-group-item\">$row[1]&emsp;&emsp;($row[2])</a>";
 	}
 }
-echo "</ul></br></br>";
+echo "</div></br></br>";
 ?>
 </div>
 </div>
@@ -158,14 +164,14 @@ echo "</ul></br></br>";
 </div>
 <div id="editorPanel" class="panel-collapse collapse">
 <div class="panel-body">
-<ul class="list-group">
+<div class="list-group">
 <?php
 if ($editCount > 0){
 	while ($row = mysql_fetch_array($editResults)){
-			echo "<li class=\"list-group-item\">$row[1]&emsp;&emsp;($row[2])</li>";
+			echo "<a href=\"movie.php?mid=$row[0]\" class=\"list-group-item\">$row[1]&emsp;&emsp;($row[2])</a>";
 	}
 }
-echo "</ul></br></br>";
+echo "</div></br></br>";
 ?>
 </div>
 </div>
