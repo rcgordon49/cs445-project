@@ -5,6 +5,7 @@
 
 <body>	
 	<?php include("import.php"); ?>
+	
 	<div align = "right">
 		<form action="http://cs445.cs.umass.edu/php-wrapper/cs445_DGS_s15/login.html" align="right">
     		<input type="submit" value="Sign In">
