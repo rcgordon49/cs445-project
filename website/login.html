@@ -3,18 +3,29 @@
 
 	<head>
 		<title>LOGIN</title>
+		<?php
+			include("import2.php");
+		?>
 	</head>
 	<body>
 
-	<div align="center">
-		<font size="7">Login</font>
+			 <div align = "center">
+			 	<font size="7">Login</font>
+				<form action="checkLogin.php" method="post">
+				 	<p><input placeholder="Email" type="text" name="myemail" id="myemail"/></p>
+				 	<p><input placeholder = "Password" type="password" name="mypassword" id="mypassword"/></p>
+				 	<p><input type="submit" value="Login"/></p> 	
+				</form>
 
-		<form action="checkLogin.php" method="post">
-	 	<p><input onFocus = "this.value = ''" value = "Username" type="text" name="myemail" id="myemail"/></p>
-	 	<p><input onFocus = "this.value = ''" value = "Password" type="text" name="mypassword" id="mypassword"/></p>
-	 	<p><input type="submit" value="Login"/></p>
-	</form>
-	</div>
+				<br/>
+
+				<form action="http://cs445.cs.umass.edu/php-wrapper/cs445_DGS_s15/signup.php" align="right">
+				    <input type="submit" value="Sign In">
+				</form>
+			</div>
+
+
+	
 
 	</body>
 </html>
