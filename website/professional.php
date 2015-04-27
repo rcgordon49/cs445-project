@@ -32,7 +32,7 @@
 <html lang="en">
  <head>
  		<title><?php echo "$pro_name"?></title>
-    <meta charset=iso-8859-1">
+    <meta charset="iso-8859-1">
  		 		
  		<style>
  			#titleBox{
@@ -49,7 +49,7 @@
 <html>
 
 <body>
-<?php include("import2.php"); ?>
+<?php include("import.php"); ?>
 
 <div class="container">
 
@@ -71,7 +71,7 @@
 </div>
 <div class="col-xs-6">
 <br/>
-<?php include("bar3.php") ?>
+<?php include("bar.php") ?>
 </div>
 </div>
 <!-- End Search Grid -->
