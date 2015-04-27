@@ -8,7 +8,7 @@
     	
     	session_start();
     	//REMOVE: $_SESSION['email'] = "testaddr@aol.com"
-    	if (isset($_SESSION['email']) && $_SESSION['email'] != '' && $_SESSION['email'] == "testaddr@aol.com"){
+    	if (isset($_SESSION['email'])){
     	  include("dbConnect.php");
     	  $rateQuery = "INSERT INTO Rates(email_address, mid, user_rating) 
     	  							VALUES ('$_SESSION[email]', '$mid', '$rating')
@@ -55,7 +55,8 @@
 		$success = "rate query successful";
 	}
 	else{
-		$success = "rate query NOT successful";
+		$err = mysql_error();
+		$success = "rate query NOT successful -- $err";
 	}
 	header("Location: movie.php?rating=$rating&mid=$mid&success=$success"); //remove query param when DBMS insertion is live
 ?>

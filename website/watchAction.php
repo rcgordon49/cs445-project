@@ -4,7 +4,7 @@
 		//echo "<script type='text/javascript'>alert('mid = $mid');</script>";
 		session_start();
 	  //REMOVE: $_SESSION['email'] = "testaddr@aol.com"
-		if (isset($_SESSION['email']) && $_SESSION['email'] != '' && $_SESSION['email'] == "testaddr@aol.com"){
+		if (isset($_SESSION['email'])){
 			include("dbConnect.php");
 			$watchQuery = "INSERT INTO Watches(email_address, mid, watch_time) VALUES ('$_SESSION[email]', '$mid', DEFAULT)";
 			$watchResults = mysql_query($watchQuery);

@@ -34,6 +34,7 @@
  		<title><?php echo "$pro_name"?></title>
     <meta charset=iso-8859-1">
     
+    <!--
     <!-- bootstrap libraryies: -->
     <!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
@@ -43,7 +44,8 @@
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
  
  		<link rel="stylesheet" type="text/css" href="movieStyle.css"/>
- 		
+ 		-->
+ 		 		
  		<style>
  			#titleBox{
 				font-size: 200%;
@@ -59,14 +61,16 @@
 <html>
 
 <body>
+<?php include("import2.php"); ?>
+
 <div class="container">
 
 <!-- Search Grid -->
 <div class="row">
-<div class="col-cs-7">
+<div class="col-cs-6">
 </div>
-<div class="col-cs-5">
-<?php include("bar2.php") ?>
+<div class="col-cs-6">
+<?php include("bar3.php") ?>
 </div>
 </div>
 <!-- End Search Grid -->

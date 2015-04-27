@@ -127,16 +127,28 @@ TO DO:
 
  </head>
 <body>
-<?php include("import.php"); ?>
+<?php include("import2.php"); ?>
 
 <div class="container">
 
 <!-- Search Grid -->
 <div class="row">
-<div class="col-xs-7">
+<div class="col-xs-6">
+<div align="left">
+<?php
+	session_start();
+	if(isset($_SESSION['email'])){
+		echo "<a href=\"user.php?email=$_SESSION[email]\">";
+	}
+	else{
+		echo "<a href=\"index.php\">";
+	}
+	echo "<img src=\"http://cs445.cs.umass.edu/groups/DGS/www/movieNetLogo.png\"/></a>";
+?>
 </div>
-<div class="col-xs-5">
-<?php include("bar.php") ?>
+</div>
+<div class="col-xs-6">
+<?php include("bar3.php") ?>
 </div>
 </div>
 
