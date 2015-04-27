@@ -101,18 +101,6 @@ TO DO:
  <head>
  		<title><?php echo "$title"?></title>
     <meta charset=iso-8859-1">
-    
-    <!-- bootstrap libraryies: -->
-    <!-- Latest compiled and minified CSS -->
-    
-    <!--
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
-		<!-- jQuery library -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<!-- Latest compiled JavaScript -->
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
- 		-->
-
  		
  		<style>
  			#titleBox{
@@ -148,9 +136,11 @@ TO DO:
 </div>
 </div>
 <div class="col-xs-6">
+<br/>
 <?php include("bar3.php") ?>
 </div>
 </div>
+<!-- End Search Grid -->
 
 
 <!-- Main Page Grid: -->

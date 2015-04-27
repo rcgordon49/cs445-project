@@ -33,18 +33,6 @@
  <head>
  		<title><?php echo "$pro_name"?></title>
     <meta charset=iso-8859-1">
-    
-    <!--
-    <!-- bootstrap libraryies: -->
-    <!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
-		<!-- jQuery library -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<!-- Latest compiled JavaScript -->
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
- 
- 		<link rel="stylesheet" type="text/css" href="movieStyle.css"/>
- 		-->
  		 		
  		<style>
  			#titleBox{
@@ -67,14 +55,26 @@
 
 <!-- Search Grid -->
 <div class="row">
-<div class="col-cs-6">
+<div class="col-xs-6">
+<div align="left">
+<?php
+	session_start();
+	if(isset($_SESSION['email'])){
+		echo "<a href=\"user.php?email=$_SESSION[email]\">";
+	}
+	else{
+		echo "<a href=\"index.php\">";
+	}
+	echo "<img src=\"http://cs445.cs.umass.edu/groups/DGS/www/movieNetLogo.png\"/></a>";
+?>
 </div>
-<div class="col-cs-6">
+</div>
+<div class="col-xs-6">
+<br/>
 <?php include("bar3.php") ?>
 </div>
 </div>
 <!-- End Search Grid -->
-
 
 <!-- Main Page Grid: -->
 <div class="row">

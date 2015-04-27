@@ -69,13 +69,6 @@ function follow() {
 
 	<head>
 		<title></title>
-		<!-- bootstrap libraryies: -->
-    	<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
-		<!-- jQuery library -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<!-- Latest compiled JavaScript -->
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		
 		<style>
 			form{
@@ -85,25 +78,33 @@ function follow() {
 			
 	</head>
 	<body>
-	
+	<?php include("import2.php"); ?>
+
 <div class = "container">
-	<div class = "row">
+	
+<!-- Search Grid -->
+<div class="row">
+<div class="col-xs-6">
+<div align="left">
+<?php
+	if(isset($_SESSION['email'])){
+		echo "<a href=\"user.php?email=$_SESSION[email]\">";
+	}
+	else{
+		echo "<a href=\"index.php\">";
+	}
+	echo "<img src=\"http://cs445.cs.umass.edu/groups/DGS/www/movieNetLogo.png\"/></a>";
+?>
+</div>
+</div>
+<div class="col-xs-6">
+<br/>
+<?php include("bar3.php") ?>
+</div>
+</div>
+<!-- End Search Grid -->
 
-		<div class="col-xs-3">
-		</div>
-
-		<div class="col-xs-3">
-		<?php
-			include("import2.php");
-			include("bar3.php");
-		?>
-		</div>
-
-		<div class="col-xs-6">
-		</div>
-
-	</div>
-
+<br/>
 	<div class = "row">
 		<div class = "col-xs-3">
 			<p style="font-size: 200%;" ><?PHP echo $name; ?></p>
