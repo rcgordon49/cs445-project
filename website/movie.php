@@ -51,7 +51,7 @@ TO DO:
 	$title = $row[1];
 	$year = $row[2];
   
-  $watchQuery="SELECT U.name, W.email_address, W.mid, W.watch_time FROM Watches W, Users U WHERE W.email_address = U.email_address AND mid='$mid' ORDER BY watch_time";
+  $watchQuery="SELECT U.name, W.email_address, W.mid, W.watch_time FROM Watches W, Users U WHERE W.email_address = U.email_address AND mid='$mid' ORDER BY watch_time DESC";
 	$watchResults=mysql_query($watchQuery);
 	$watchCount=mysql_num_rows($watchResults);
 	

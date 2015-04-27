@@ -5,14 +5,16 @@
 		session_start();
 	  //REMOVE: $_SESSION['email'] = "testaddr@aol.com"
 		if (isset($_SESSION['email']) && $_SESSION['email'] != '' && $_SESSION['email'] == "testaddr@aol.com"){
-			$watchQuery = "INSERT INTO Watches (email_address, mid, watch_time) VALUES ('$_SESSION[email]', '$mid', NULL)";
-			$watchResults = mysql_query(watchQuery);
+			include("dbConnect.php");
+			$watchQuery = "INSERT INTO Watches(email_address, mid, watch_time) VALUES ('$_SESSION[email]', '$mid', DEFAULT)";
+			$watchResults = mysql_query($watchQuery);
 			
 			if(!empty($watchResults)){
 				$success = "watch query successful";
 			}
 			else{
-				$success = "watch query NOT successful";
+				$err = mysql_error();
+				$success = "watch query NOT successful -- $err";
 			}
 		}
 		else{
