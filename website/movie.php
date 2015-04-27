@@ -122,8 +122,6 @@ TO DO:
 		</style
 
  </head>
-<html>
-
 <body>
 <div class="container">
 
