@@ -17,7 +17,7 @@ include("dbConnect.php");
 
 		$checkEmailQuery = "SELECT * FROM Users U WHERE U.email_address = '$email'";
 
-		$checkEmailQueryResults = mysql_query($watchQuery);
+		$checkEmailQueryResults = mysql_query($checkEmailQuery);
 		$checkEmailQueryCount = mysql_num_rows($checkEmailQueryResults);
 
 		if($checkEmailQueryCount == 0){
