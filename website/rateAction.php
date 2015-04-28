@@ -24,10 +24,12 @@
     	  $avgInfoResults=mysql_query($avgInfoQuery);
     	  $row = mysql_fetch_array($avgInfoResults);
     	  
+    	  $title = mysql_escape_string($row[1]);
+    	  
     	  //updates the averages and totals if the movie was already rated, else puts in a new row
     	  //failed attempt at concise query:
     	  $avgUpdateQuery = "INSERT INTO Avg_Ratings (mid, title, year, num_rates, avg_rating, avg_user_age)
-    	  									 VALUES ('$row[0]', '$row[1]', '$row[2]', '$row[3]', '$row[4]', '$row[5]')
+    	  									 VALUES ('$row[0]', '$title', '$row[2]', '$row[3]', '$row[4]', '$row[5]')
     	  									 ON DUPLICATE KEY UPDATE
     	  									 num_rates = VALUES(num_rates),
     	  									 avg_rating = VALUES(avg_rating),
